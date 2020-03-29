@@ -10,7 +10,7 @@ export const todoReducer = (state, action) => {
   const todo = {
     item: action.payload,
     completed: false,
-    id: 1235
+    id: new Date().getTime()
   };
   console.log(state, action);
   switch (action.type) {

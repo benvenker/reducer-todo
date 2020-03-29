@@ -5,12 +5,7 @@ import TodoList from "./TodoList";
 const TodoForm = () => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
   // console.log(state);
-  const [newTodo, setNewTodo] = useState(initialState);
-
-  // const handleSubmit = event => {
-  //   event.preventDefault();
-  //   setNewTodo(document.querySelector(".input-todo").value);
-  // };
+  const [newTodos, setNewTodos] = useState(initialState);
 
   return (
     <div>
@@ -30,7 +25,7 @@ const TodoForm = () => {
           Add Todo
         </button>
       </form>
-      {/* <TodoList todos={state} /> */}
+      <TodoList todos={state} />
     </div>
   );
 };
