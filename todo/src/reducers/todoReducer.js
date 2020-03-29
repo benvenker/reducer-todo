@@ -7,5 +7,16 @@ export const initialState = [
 ];
 
 export const todoReducer = (state, action) => {
+  const todo = {
+    item: action.payload,
+    completed: false,
+    id: 1235
+  };
   console.log(state, action);
+  switch (action.type) {
+    case "ADD_TODO":
+      return [...state, todo];
+    default:
+      return state;
+  }
 };
