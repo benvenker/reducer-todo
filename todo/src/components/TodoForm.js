@@ -16,11 +16,16 @@ const TodoForm = () => {
         <button
           onClick={e => {
             e.preventDefault();
+            const todo = {
+              item: document.querySelector(".input-todo").value,
+              completed: false,
+              id: new Date().getTime()
+            };
+            setTodos([...state, todo]);
             dispatch({
               type: "ADD_TODO",
-              payload: document.querySelector(".input-todo").value
+              payload: todo
             });
-            setTodos([...todos], document.querySelector(".input-todo").value);
           }}
         >
           Add Todo
@@ -29,17 +34,11 @@ const TodoForm = () => {
       <ul>
         {state.map(todo => (
           <li
-            onClick={e => {
-              e.preventDefault();
+            onClick={() => {
               dispatch({
                 type: "TOGGLE_TODO",
-                payload: {
-                  item: todo.item,
-                  completed: !todo.completed,
-                  id: todo.id
-                }
+                payload: todo
               });
-              console.log("toggled completed: ", !todo.completed);
             }}
             key={todo.id}
           >
