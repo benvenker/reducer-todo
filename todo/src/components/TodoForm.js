@@ -1,11 +1,11 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { todoReducer, initialState } from "../reducers/todoReducer";
 import TodoList from "./TodoList";
 
 const TodoForm = () => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
   // console.log(state);
-  const [newTodos, setNewTodos] = useState(initialState);
+  const [todos, setTodos] = useState(initialState);
 
   return (
     <div>
@@ -20,12 +20,33 @@ const TodoForm = () => {
               type: "ADD_TODO",
               payload: document.querySelector(".input-todo").value
             });
+            setTodos([...todos], document.querySelector(".input-todo").value);
           }}
         >
           Add Todo
         </button>
       </form>
-      <TodoList todos={state} />
+      <ul>
+        {state.map(todo => (
+          <li
+            onClick={e => {
+              e.preventDefault();
+              dispatch({
+                type: "TOGGLE_TODO",
+                payload: {
+                  item: todo.item,
+                  completed: !todo.completed,
+                  id: todo.id
+                }
+              });
+              console.log("toggled completed: ", !todo.completed);
+            }}
+            key={todo.id}
+          >
+            {todo.item}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
