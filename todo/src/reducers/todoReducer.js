@@ -2,21 +2,21 @@ export const initialState = [
   {
     item: "Learn about reducers",
     completed: false,
-    id: 1234
+    id: 1
   },
   {
     item: "Something about reducers",
     completed: false,
-    id: 3892984337589
+    id: 2
   },
   {
     item: "More about reducers",
     completed: false,
-    id: 3892987589
+    id: 3
   }
 ];
 
-export const todoReducer = (state, action) => {
+export const todoReducer = (state = initialState, action) => {
   console.log(state, action);
   switch (action.type) {
     case "ADD_TODO":
@@ -30,11 +30,13 @@ export const todoReducer = (state, action) => {
     //   console.log("todo added: ", todo);
     //   return [todo, ...state];
     case "TOGGLE_TODO":
-      console.log("action id: ", action.payload.id);
-      const index = state.findIndex(el => el.id === action.payload.id);
-      const editable = { ...state[index] };
-      editable.completed = !editable.completed;
-      state.splice(index, 1, editable);
+      // console.log("action id: ", action.payload.id);
+      // const index = state.findIndex(el => el.id === action.payload.id);
+      // const editable = { ...state[index] };
+      // console.log("editable: ", editable);
+      // editable.completed = !editable.completed;
+      // console.log(editable);
+      // state.splice(index, 1, editable);
       return [...state];
     default:
       return state;
