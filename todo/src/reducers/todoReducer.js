@@ -21,23 +21,28 @@ export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TODO":
       return [...state, action.payload];
-    // case "ADD_TODO":
-    //   const todo = {
-    //     item: action.payload,
-    //     completed: false,
-    //     id: new Date().getTime()
-    //   };
-    //   console.log("todo added: ", todo);
-    //   return [todo, ...state];
+
     case "TOGGLE_TODO":
-      // console.log("action id: ", action.payload.id);
-      // const index = state.findIndex(el => el.id === action.payload.id);
-      // const editable = { ...state[index] };
-      // console.log("editable: ", editable);
-      // editable.completed = !editable.completed;
-      // console.log(editable);
-      // state.splice(index, 1, editable);
-      return [...state];
+      console.log("toggle called");
+      return (
+        [...state],
+        state.map(todo => {
+          if (todo.id === action.payload) {
+            return {
+              item: todo.item,
+              completed: !todo.completed,
+              id: todo.id
+            };
+          } else {
+            return todo;
+          }
+        })
+      );
+    case "CLEAR_COMPLETED":
+      console.log("clear completed called");
+      return state.filter(todo => {
+        return todo.completed === false;
+      });
     default:
       return state;
   }

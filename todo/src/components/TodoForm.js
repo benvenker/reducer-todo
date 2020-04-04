@@ -6,8 +6,6 @@ import TodoItem from "./TodoItem";
 const TodoForm = () => {
   console.log("rendered");
   const [state, dispatch] = useReducer(todoReducer, initialState);
-  // console.log(state);
-  const [todos, setTodos] = useState(initialState);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,22 +14,20 @@ const TodoForm = () => {
       completed: false,
       id: new Date().getTime()
     };
-    setTodos([...state, todo]);
+    // setTodos([...state, todo]);
     dispatch({
       type: "ADD_TODO",
       payload: todo
     });
   };
 
-  const handleToggle = e => {
-    console.log("clicked");
+  const clearItems = e => {
     e.preventDefault();
-    e.nativeEvent.stopImmediatePropagation();
     dispatch({
-      type: "TOGGLE_TODO",
-      payload: todos[0]
+      type: "CLEAR_COMPLETED"
     });
   };
+
   return (
     <div>
       <form>
@@ -39,10 +35,21 @@ const TodoForm = () => {
           Add Todo <input className="input-todo" type="text" />
         </label>
         <button onClick={handleSubmit}>Add Todo</button>
+        <button onClick={clearItems}>Clear Completed</button>
       </form>
       <ul>
         {state.map(todo => (
-          <li onClick={handleToggle} key={todo.id}>
+          <li
+            onClick={e => {
+              console.log("clicked");
+              e.nativeEvent.stopImmediatePropagation();
+              dispatch({
+                type: "TOGGLE_TODO",
+                payload: todo.id
+              });
+            }}
+            key={todo.id}
+          >
             {todo.item}
           </li>
         ))}
