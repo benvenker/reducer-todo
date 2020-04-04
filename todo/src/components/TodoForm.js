@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { todoReducer, initialState } from "../reducers/todoReducer";
 import TodoList from "./TodoList";
 import TodoItem from "./TodoItem";
+// import "../index.css";
 
 const TodoForm = () => {
   console.log("rendered");
@@ -40,6 +41,7 @@ const TodoForm = () => {
       <ul>
         {state.map(todo => (
           <li
+            className={todo.completed === true ? "completed" : null}
             onClick={e => {
               console.log("clicked");
               e.nativeEvent.stopImmediatePropagation();
